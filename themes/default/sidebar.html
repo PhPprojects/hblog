@@ -1,0 +1,45 @@
+<div class="col-md-4 blog_right">
+    <!--                            <h4>Ads 125 x 125</h4>
+                                <ul class="ads_nav list-unstyled">
+                                    <li><a href="#"><img src="themes/default/images/ads_pic.jpg" alt=""> </a></li>
+                                    <li><a href="#"><img src="themes/default/images/ads_pic.jpg" alt=""> </a></li>
+                                    <li><a href="#"><img src="themes/default/images/ads_pic.jpg" alt=""> </a></li>
+                                    <li><a href="#"><img src="themes/default/images/ads_pic.jpg" alt=""> </a></li>
+                                    <div class="clearfix"></div>
+                                </ul>-->
+    
+    <ul class="sidebar-category">
+        <h4>分类目录</h4>
+        {%for row in Blog.Category() %}    
+        <li style="padding-left:{{row.level*10}}px;"><a href="{{Blog.category_link(row.id)}}" >{{row.name}}</a></li>    
+        {% else %}
+        <li>
+        <td colspan="6" align="center">暂无分类</td>                                            
+        </li>    
+        {%endfor%}        
+    </ul>
+
+
+    <ul class="tag_nav list-unstyled">
+        <h4>tags</h4>
+        <li><a href="#">art</a></li>
+        <li><a href="#">awesome</a></li>
+        <li><a href="#">classic</a></li>
+        <li><a href="#">photo</a></li>
+        <li><a href="#">wordpress</a></li>
+        <li><a href="#">videos</a></li>
+        <li><a href="#">standard</a></li>
+        <li><a href="#">gaming</a></li>
+        <li><a href="#">photo</a></li>
+        <li><a href="#">music</a></li>
+        <li><a href="#">data</a></li>
+        <div class="clearfix"></div>
+    </ul>
+    <div class="news_letter">
+        <h4>news letter</h4>
+        <form>
+            <input type="text" placeholder="Your email address">
+            <input type="submit" value="subscribe">
+        </form>
+    </div>
+</div>

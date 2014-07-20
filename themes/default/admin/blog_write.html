@@ -1,0 +1,203 @@
+{% extends "admin/layout/admin.html" %}
+{% block content %}
+<div id="page-wrapper">
+    <div class="row ">
+        <div class="col-lg-12">
+            <br/>
+        </div>
+    </div>
+    {%if flash(false)%}
+    <div class="row ">
+        <div class="col-lg-12">
+            <div class="alert alert-{{flashCode(false)}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                {{flash()}}
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    <div class="row ">
+        <form role="form" name="hform" id="hform" method="post" action="">  
+            <div class="col-lg-9">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <strong>写文章</strong>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="form-group">
+                                    <label>新文章</label>
+                                    <input class="form-control" placeholder="在此输入新文章标题" name="title" id="title"  value="{{post.title}}">
+                                </div>    
+                                <div class="form-group">                                    
+                                    <script type="text/plain" id='content' name="content" style="width: 100%;height: 300px">
+                                        {{post.content|raw}}
+                                    </script>
+                                </div>                                       
+
+                                <button type="submit" class="btn btn-success">保存</button>
+                                <button type="button" class="btn btn-default" onclick="goBack('{{urlRef()}}')" >返回</button>
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <strong>发布</strong>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label" >状态</label>                          
+                            <label class="radio-inline">
+                                <input type="radio" checked="checked" name="post_status"  value="publish">公开
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="post_status" value="draft">草稿
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="post_status"  value="private">私有
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" >评论</label>                          
+                            <label class="radio-inline">
+                                <input type="radio" checked="checked" name="comment_status"  value="open">允许
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="comment_status" value="closed">禁止
+                            </label>                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="post_date">发布日期</label>
+                            <input type="text" class="form-control" id="post_date" name='post_date' value='{{"now"|date("Y-m-d H:i:s")}}'>
+                        </div>
+
+
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-success">发布</button>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <strong>分类</strong>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class='category_select' style="max-height: 300px;overflow:hidden;overflow-y:auto;">
+                            {%for row in category%}
+                            <p ><label for='bc_{{row.id}}'>{{repeat('&nbsp;&nbsp;&nbsp;&nbsp;',row.level)|raw}}<input type="checkbox" name="category[]" {%if row.id in post_category%}checked="checked"{%endif%} value="{{row.id}}" id='bc_{{row.id}}' />  {{row.name}}</label></p>
+                            {%endfor%} 
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <strong>标签</strong>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="form-group input-group">
+                            <input type="text" name="blog_tags" id="blog_tags" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="saveTags()"><i class="fa fa-plus"></i>
+                                </button>
+                            </span>                            
+                        </div>
+                        <p class="help-block">多个标签请用英文逗号（,）分开</p>                        
+                        <div id="dstags"></div>
+                        <br/>
+                        <a href="javascript:void(0)" onclick="getTags();" class="btn btn-outline btn-primary btn-xs" >从常用标签中选择</a>
+                        <div id="tags">                            
+                        </div>
+                        <input type="hidden" name="stags" id="stags" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{{editor|raw}}
+<script type="text/javascript">
+            function getTags(){
+            $.post("{{url_to('admin/gettags')}}", function(data){
+            data = eval(data);
+                    _tags = $('#tags');
+                    _tags.empty();
+                    $(data).each(function(i, row){
+            _tags.append('<button type="button" class="btn btn-outline btn-link" onclick="addTags(\'' + row.name + '\');">' + row.name + '</button>');
+            });
+            }, "json");
+            }
+
+    function addTags(_name){
+        _tags = $('#blog_tags');
+        if (_tags.val() == ""){
+            _tags.val(_name);
+        } else{
+            values = _tags.val().split(',');
+            if($.inArray(_name,values)< 0 ){
+                _tags.val(_tags.val() + ',' + _name);
+            }
+            
+        }
+    }
+
+    function saveTags(){
+        _stags = $('#stags');
+        _tags = $('#blog_tags');
+        if (_stags.val() == ""){
+           _stags.val(_tags.val());
+        } else{
+            values = _tags.val().split(',');
+            svalues = _stags.val().split(',');
+            $(values).each(function(i, item){
+                console.log(item);
+                if ($.inArray(item,svalues)<0){
+                    _stags.val(_stags.val() + ',' + item);
+                }
+            });
+       }
+       _tags.val('');
+       reflushTags();
+    }
+    
+    function reflushTags(){
+        _dstags = $('#dstags');
+        _tags = $('#stags');
+        values = _tags.val().split(',');
+        _dstags.html('');
+        $(values).each(function(i, item){
+                    if(!item){
+                        return;
+                    }
+                    _dstags.append('<a href="javascript:removeTag(\''+item+'\');"><span class="label label-success">'+item+'</span></a>');
+                
+            });
+        
+    }
+    
+    function removeTag(_tagname){
+        _tags = $('#stags');
+        values = _tags.val().split(',');
+        idx = $.inArray(_tagname,values);
+        if(idx>=0){
+            values.splice(idx,1);
+        }
+        _tags.val(values.join(','));
+         reflushTags();
+    }
+</script>
+<!-- /#page-wrapper -->
+{% endblock %}

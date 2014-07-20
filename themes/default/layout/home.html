@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+        <title>Blog</title>
+
+        <link href="{{BASEPATH}}/themes/default/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+        <link href="{{BASEPATH}}/themes/default/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--[if lt IE 9]>
+            <script src="{{BASEPATH}}/themes/default/js/html5shiv.js"></script>
+            <script src="{{BASEPATH}}/themes/default/js/respond.min.js"></script>
+       <![endif]-->
+
+        <link href="{{BASEPATH}}/themes/default/css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <script type="text/javascript" src="{{BASEPATH}}/themes/default/js/jquery.min.js"></script>
+        <script type="text/javascript" src="{{BASEPATH}}/themes/default/js/bootstrap.js"></script>
+        <script type="text/javascript" src="{{BASEPATH}}/themes/default/js/bootstrap.min.js"></script>
+
+        <!--        <script type="text/javascript" src="{{BASEPATH}}/assets/a46f51da041/third-party/SyntaxHighlighter/shCore.js"></script>
+                <link href="{{BASEPATH}}/assets/a46f51da041/third-party/SyntaxHighlighter/shCoreDefault.css" rel='stylesheet' type='text/css' />
+                <script>
+                SyntaxHighlighter.all();
+                </script>-->
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row header">
+                <nav class="navbar navbar-fixed-top" role="navigation">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <h1>HBlog</h1>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="menu nav navbar-nav ">
+                                <li class="active"><a href="{{Blog.homeUrl()}}">首页</a></li>
+                                <li><a href="{{url_to('about')}}">关于我</a></li>
+                                <li><a href="{{url_to('contact')}}">contact</a></li>
+                            </ul>
+                            <form class="navbar-form navbar-right" role="search">
+                                <div class="form-group my_search">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                                <button type="submit" class="btn btn-default">搜索</button>
+                            </form>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+
+        </div>
+
+        <div class="main"><!-- start main -->
+            <div class="container">
+                <div class="blog"><!-- start blog -->
+                    <div class="row">
+                        {% block content %}
+                        {% endblock content %}
+
+                        {%include "sidebar.html"%}
+                        <div class="clearfix"></div>
+                    </div>
+                </div><!-- end blog -->
+            </div>
+        </div>
+        {%include "footer.html"%}
+
+    </body>
+</html>
