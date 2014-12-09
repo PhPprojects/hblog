@@ -17,7 +17,7 @@ class Pagination extends \H1Soft\H\Web\Pagination {
 
     public function toHtml($model='posts') {
         $blog = Blog::getInstance();
-        echo '<div class="row "><div class="col-lg-12" style="text-align:center"><ul class="pagination pagination-lg">';
+        echo '<div class="col-lg-12" style="text-align:center"><ul class="pagination pagination-lg">';
         if ($this->_cur_page <= 1) {
             echo '<li class="disabled" ><a href="javascript:void(0)">&laquo;</a></li>';
 //            echo '<li class="paginate_button active " tabindex="0"><a href="#">1</a></li>';
@@ -26,7 +26,7 @@ class Pagination extends \H1Soft\H\Web\Pagination {
         }
         for ($i = 1; $i <= $this->_total_page; $i++) {
             if ($i == $this->_cur_page) {
-                echo '<li class="paginate_button active " tabindex="0"><a href="#">', $i, '</a></li>';
+                echo '<li class="paginate_button active " tabindex="0"><a href="javascript:void(0);">', $i, '</a></li>';
             } else {
                 echo '<li class="paginate_button " tabindex="0"><a href="',$blog->PagebarLink($i,$model),'">', $i, '</a></li>';
             }
@@ -40,7 +40,7 @@ class Pagination extends \H1Soft\H\Web\Pagination {
         }
 
 
-        echo '</ul></div></div>';
+        echo '</ul></div>';
     }
 
 }

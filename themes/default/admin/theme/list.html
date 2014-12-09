@@ -1,0 +1,43 @@
+{% extends "admin/layout/admin.html" %}
+{% block content %}
+<ul class="breadcrumb">
+    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li class="active">主题</li>
+</ul>
+{% include "admin/flash_message.html" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+            
+            <div class="block">
+                <p class="block-heading">主题</p>
+                <div class="block-body ">
+
+                    <div class="row-fluid">
+                        {% for theme in themes %}
+                        <div class="span4">
+                            <p align="center">
+                        <img src="{{ theme.theme_screenshot }}" class="img-polaroid">
+                    </p>
+                        <p align="center">
+                            <br/>
+                        {% if current_theme != theme.theme_name %}
+                        <a href="{{ url_to('/admin/theme/change',{default:theme.theme_name}) }}" class="btn btn-primary icon icon-screenshot">启用</a>
+                        {% else %}
+                        <a href="{{ url_to('/admin/theme/customize') }}" class="btn icon icon-edit">自定义</a>
+                        {% endif %}
+                        
+                        </p>
+                        </div>
+                        {% endfor %}
+                     
+                 
+                    </div>
+                    
+                    
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+    </div> 
+</div>
+{% endblock %}

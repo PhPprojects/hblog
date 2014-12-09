@@ -1,21 +1,17 @@
 {% extends "admin/layout/admin.html" %}
 {% block content %}
-<div id="page-wrapper">
-    <div class="row ">
-        <div class="col-lg-12">
-            <br/>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>账户设置</strong>
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6">
+
+<ul class="breadcrumb">
+    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li class="active">账户设置</li>
+</ul>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+            <div class="block">
+                <p class="block-heading">账户设置</p>
+                <div class="block-body">
+                <div class="row-fluid">
                             {%if flash(false)%}
                             <div class="alert alert-{{flashCode(false)}} alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">关闭</button>
@@ -25,29 +21,47 @@
                             <form role="form" name="hform" id="hform" method="post" action="">                                        
                                 <div class="form-group">
                                     <label>用户名</label>
-                                    <input class="form-control" placeholder="" name="username" value="{{item.username}}">
+                                    <input class="input-xlarge" placeholder="" name="username" value="{{item.username}}">
                                 </div>    
                                 <div class="form-group">
                                     <label>密码</label>
-                                    <input class="form-control" placeholder="" name="oldpasswd" value="">
+                                    <input class="input-xlarge" placeholder="" name="oldpasswd" value="">
                                 </div>                                       
 
                                 <div class="form-group">
                                     <label>新密码</label>
-                                    <input class="form-control" placeholder="" name="newpasswd" value="">
+                                    <input class="input-xlarge" placeholder="" name="newpasswd" value="">
                                 </div>
                                 <div class="form-group">
                                     <label>密码</label>
-                                    <input class="form-control" placeholder="" name="renewpasswd" value="">
+                                    <input class="input-xlarge" placeholder="" name="renewpasswd" value="">
                                 </div>
-
-
-                                <input type='hidden' name='id' value="{{item.id}}" />
-                                <button type="submit" class="btn btn-success">保存</button>                                
+                                <div class="form-group">
+                                    <label>邮箱</label>
+                                    <input class="input-xlarge"  name="email" value="{{item.email}}">
+                                </div>
+                                <br/>
+<div class="btn-toolbar">
+   
+    <input type='hidden' name='id' value="{{item.id}}" />
+    <button type="submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>     
+  <div class="btn-group">
+  </div>
+</div>
+                                                           
                             </form>
-                        </div>
-                        <!-- /.col-lg-6 (nested) -->                              
+                    <div class="clearfix"></div>
                     </div>
                 </div>
-                <!-- /#page-wrapper -->
-                {% endblock %}
+            </div>
+       
+                   
+                            
+                      
+                                           
+                  
+
+  </div>
+ </div>  
+
+{% endblock %}

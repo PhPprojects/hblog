@@ -15,21 +15,13 @@ class UEditor extends \H1Soft\H\Web\Plugin {
             $options['textarea'] = $_name;
             $create_editor .= "var editor_{$_name} = UE.getEditor('{$_name}'," . json_encode($options) . ");";
         }
-        $basePath = self::assets(__CLASS__);
-        //复制文件到 $basePath
-
-        $assetPath = self::assetPath(__CLASS__);
-//        dirname(dirname(__FILE__)).'/Resources/';
-        if (!file_exists($basePath . '/ueditor.all.min.js')) {
-            \H1Soft\H\Utils\File::recurse_copy(dirname(dirname(__FILE__)) . '/Resource/', $basePath);
-        }
-
+        $basePath = \H1Soft\H\Web\Application::basePath().'/static/ueditor';
 
         $editor = <<<EOF
-<script type="text/javascript" charset="utf-8" src="$assetPath/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="$assetPath/ueditor.all.min.js"></script>
-<link rel="stylesheet" type="text/css" href="$assetPath/themes/default/ueditor.css"/>                
-<script type="text/javascript">	;                
+<script type="text/javascript" charset="utf-8" src="$basePath/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="$basePath/ueditor.all.min.js"></script>
+<link rel="stylesheet" type="text/css" href="$basePath/themes/default/css/ueditor.css"/>                
+<script type="text/javascript">               
 	$create_editor
 </script>                
 EOF;

@@ -17,8 +17,8 @@ class Post extends \H1Soft\H\Web\Model {
             return;
         }
         if(!empty($_categorys) && is_array($_categorys)){
-            $ids = join(',', $_categorys);
-            $this->db()->delete('blog_to_category',"post_id in ($ids)");
+            
+            $this->db()->delete('blog_to_category',array('post_id'=>$post_id));
             foreach($_categorys as $id){
                 $this->db()->insert('blog_to_category',array(
                     'post_id'=>$post_id,

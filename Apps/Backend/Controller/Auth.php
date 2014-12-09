@@ -7,7 +7,7 @@ namespace Apps\Backend\Controller;
  * @authName 授权管理
  * @authDescription 统一授权管理解决方案
  */
-class Auth extends \H1Soft\H\Web\Controller {
+class Auth extends \Apps\Backend\Controller\AdminController {
 
     /**
      * 权限验证失败
@@ -206,6 +206,7 @@ class Auth extends \H1Soft\H\Web\Controller {
         $this->isSuperAdmin();
         $this->assign('menu_setting', 1);
         $id = intval($this->get('id'));
+
         if ($this->isPost()) {
             $post = array(
                 'name' => $this->post('name'),             
@@ -214,11 +215,9 @@ class Auth extends \H1Soft\H\Web\Controller {
 
             $this->db()->update('group', $post, "id=$id");
             $this->redirect($this->urlRef());
-        }
-
-        $tbname = $this->db()->tb_name('group');
-
-        $group = $this->db()->getRow("select * from `$tbname` where `id`=%d", array('id' => $id));
+        }      
+        $group = $this->db()->getOne('group', "`id`=$id");
+        
 
         $this->render('admin/auth_group_modify', array('item' => $group, 'id' => $id));
     }

@@ -1,0 +1,118 @@
+{% extends "admin/layout/admin.html" %}
+{% block content %}
+<ul class="breadcrumb">
+    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li class="active">系统设置</li>
+</ul>
+{% include "admin/flash_message.html" %}
+<div class="container-fluid">
+	    <div class="row-fluid">
+<form name="hform" id="hform" method="post" action="">   
+			<div class="btn-toolbar">
+			    <input type="submit" class="btn btn-primary" value="保存" />
+			    <a href="javascript:void(0);" onclick="goBack('{{urlRef()}}')"   class="btn">返回</a>
+			  <div class="btn-group">
+			  </div>
+			</div>
+			<div class="well">
+			    <ul class="nav nav-tabs">
+			      <li class="active"><a href="#site_setting" data-toggle="tab">网站设置</a></li>
+			      <li><a href="#email_setting" data-toggle="tab">邮件设置</a></li>
+			      <li><a href="#seo_setting" data-toggle="tab">SEO</a></li>
+			    </ul>
+			    <div id="myTabContent" class="tab-content">
+			      <div class="tab-pane active in" id="site_setting">
+			    <div id="tab">
+			        <label>网站名称</label>
+			        <input type="text" name="system[site_title]" value="{{system.site_title }}" class="input-xlarge">
+			        <label>副标题</label>
+			       <input type="text" value="{{system.site_subtitle }}" name="system[site_subtitle]" class="input-xlarge">
+
+			        <label>电子邮件地址</label>
+			        <input type="text" value="{{system.email }}" name="system[email]" class="input-xlarge">
+			        <label>备案号</label>
+			        <input type="text" value="{{system.icp }}" name="system[icp]" class="input-xlarge">
+			        <label>地址</label>
+			        <textarea rows="3" class="input-xlarge" name="system[address]"  >{{system.address }}</textarea>
+			        <label>时区</label>
+			        <select name="system[time_zone]"  class="input-xlarge">
+			          <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
+			          <option value="-11.0">(GMT -11:00) Midway Island, Samoa</option>
+			          <option value="-10.0">(GMT -10:00) Hawaii</option>
+			          <option value="-9.0">(GMT -9:00) Alaska</option>
+			          <option selected="selected" value="-8.0">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+			          <option value="-7.0">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+			          <option value="-6.0">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+			          <option value="-5.0">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+			          <option value="-4.0">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+			          <option value="-3.5">(GMT -3:30) Newfoundland</option>
+			          <option value="-3.0">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+			          <option value="-2.0">(GMT -2:00) Mid-Atlantic</option>
+			          <option value="-1.0">(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+			          <option value="0.0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+			          <option value="1.0">(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+			          <option value="2.0">(GMT +2:00) Kaliningrad, South Africa</option>
+			          <option value="3.0">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+			          <option value="3.5">(GMT +3:30) Tehran</option>
+			          <option value="4.0">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+			          <option value="4.5">(GMT +4:30) Kabul</option>
+			          <option value="5.0">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+			          <option value="5.5">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+			          <option value="5.75">(GMT +5:45) Kathmandu</option>
+			          <option value="6.0">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+			          <option value="7.0">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+			          <option value="8.0">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+			          <option value="9.0">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+			          <option value="9.5">(GMT +9:30) Adelaide, Darwin</option>
+			          <option value="10.0">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+			          <option value="11.0">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+			          <option value="12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+			    </select>
+			    </div>
+			      </div>
+			      <div class="tab-pane fade" id="email_setting">
+			    <div id="tab2">
+			        <label>邮件协议</label>
+			        <select name="mail[mail_protocol]" class="input-xlarge">
+                                    <option value="MAIL" {{mail.mail_protocol=="MAIL"?"selected='selected'"}}>Mail</option>
+                                    <option value="SMTP" {{mail.mail_protocol=="SMTP"?"selected='selected'"}}>Smtp</option>
+                                </select>    
+
+                    <label>邮件服务器</label>
+                    <input name="mail[smtp_host]" type="text"  value="{{mail.smtp_host}}" />
+                    <label>登录名</label>
+                                <input name="mail[smtp_username]" type="text"  value="{{mail.smtp_username}}" />
+                    <label>密码</label>
+                                <input name="mail[smtp_password]" type="text"  value="{{mail.smtp_password}}" />
+                    <label>端口</label>
+                                <input name="mail[smtp_port]" type="text"  value="{{mail.smtp_port}}" />
+                    <label>连接超时时间</label>
+                                <input name="mail[smtp_timeout]" type="text"  value="{{mail.smtp_timeout}}" />
+			    </div>
+			      </div>
+
+<!-- seo -->
+<div class="tab-pane fade" id="seo_setting">
+			    <div id="tab2">
+			        <label>关键词</label>
+			       <input type="text" value="{{system.meta_tag_keywords }}" name="system[meta_tag_keywords]" class="input-xlarge">
+			       <label>描述</label>			      
+			       <textarea rows="3" class="input-xlarge" name="system[meta_tag_description]"  >{{system.meta_tag_description }}</textarea>
+			       <label>统计代码</label>			      
+			       <textarea rows="3" class="input-xlarge" name="system[analytics]"  >{{system.analytics }}</textarea>
+			    </div>
+			      </div>
+
+
+			      
+			  </div>
+
+			</div>
+
+			                    
+			                   
+			                    </form>
+			            </div>
+ </div>  
+
+ {% endblock content %}

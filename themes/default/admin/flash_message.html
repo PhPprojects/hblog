@@ -1,0 +1,12 @@
+{%if flash(false)%}   
+<div class="container-fluid">
+<div class="row-fluid">
+    
+        <div data-alert class="alert alert-{{flashCode(false)}} radius">
+            {{flash()}}
+            <a href="#" class="close">&times;</a>
+        </div>
+    
+</div>               
+</div>               
+{%endif%}

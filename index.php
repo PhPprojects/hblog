@@ -1,15 +1,22 @@
 <?php
 
-
+/*
+ * This file is part of the HBlog package.
+ * (w) http://www.w4u.cn
+ * (c) Allen Niu <h@h1soft.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 #error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 
 
 require 'vendor/autoload.php';
 
-date_default_timezone_set('Asia/Shanghai');
+
 $app = new \H1Soft\H\Web\Application();
 
-$app->run();
+$app->bootstrap('\Apps\Bootstrap')->run();
 
 

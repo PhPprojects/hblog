@@ -1,0 +1,36 @@
+{% extends "layout/home.html" %}
+
+{% block content %}
+                
+{%for post in posts%}
+<div id="post-{{post.id}}" class="hentry post publish post-1 odd author-patrick category-bootstrap post_tag-admin-bootstrap-theme-free-download post_tag-bootstrap-free-admin-themes post_tag-free-bootstrap-theme post_tag-free-download-bootstrap-theme">
+
+                            
+                                                        
+                            <div class="sticky-header">
+                                    
+                                <h2 class='post-title entry-title'>
+                                	<a href='{{Blog.post_link(post.id)}}'>{{post.title}}</a>
+                                </h2>
+                                <div class="byline">
+                                	<time class="published" datetime="{{ post.post_date|date('Y-m-d') }}" title="{{ post.post_date|date('Y-m-d') }}">{{ post.post_date|date('Y-m-d') }}</time> &middot; 
+                                	by <span class="author vcard">
+                                	<a class="url fn n" rel="author" href="#" title="patrick">{{ post.username }}</a></span> </div>                                       
+                            </div><!-- .sticky-header -->
+    
+                            <div class="entry-summary">
+                                
+                               {{post.content|raw}}
+                                
+                                                                    
+                            </div><!-- .entry-summary -->
+
+                            
+                        </div><!-- .hentry -->
+			
+{%endfor%}
+{%include "pagebar.html"%}
+    
+{% endblock content %}
+
+

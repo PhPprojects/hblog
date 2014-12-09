@@ -31,22 +31,27 @@ class Blog extends \H1Soft\H\Web\Model {
      * @param int $post_id
      * @return Post
      */
-    public function Post($post_id) {
-        return $this->db()->getOne('blog_posts', "`id`=$post_id");
+    public function Post($post_id) {         
+        $result = $this->db()->join('admin a', "a.id=p.author")->where('p.id',$post_id,false)->get('blog_posts p');
+        if(!empty($result)){
+            return $result[0];
+        }
+        return NULL;
     }
 
     public function Posts($params = NULL) {
         if ($params) {            
-            parse_str($params);
-            $where = '';
-            if (isset($category_id)) {
-                $where .= " category_id=$category_id";
-                $result = $this->db()->join('blog_posts p', "p.id=c.post_id")->order_by('post_date', 'desc')->where('category_id', $category_id)->get('blog_to_category c');;
-//                echo $this->db()->last_query();
-                return $result; 
-            } else {
-                
+            parse_str($params);            
+            $this->db()->join('blog_posts p', "p.id=c.post_id")->join('admin a', "a.id=p.author")->order_by('post_date', 'desc');
+            if(isset($post_status)){
+                $this->db()->where('post_status',$post_status);
             }
+
+            if (isset($category_id)) {
+                $this->db()->where('category_id', $category_id);
+            }
+            $result = $this->db()->get('blog_to_category c');            
+            return $result; 
         } else {
             return $this->db()->getAll('blog_posts', NULL, "post_date desc");
         }

@@ -2,9 +2,10 @@
 
 namespace Apps\Catalog\Controller;
 
-class Index extends \H1Soft\H\Web\Controller {
+class Index extends \Apps\Common\Controller {
 
     public function init() {
+        parent::init();
         $this->assign('Blog', \Apps\Blog\Model\Blog::getInstance());
     }
 
@@ -14,9 +15,10 @@ class Index extends \H1Soft\H\Web\Controller {
                 ->where('post_status', 'publish')
                 ->count('blog_posts');
         $page = new \Apps\Blog\Model\Pagination($total_rows, $this->get('page', 1), 2);
-        $posts = $this->db()->order_by('post_date', 'DESC')
+        $posts = $this->db()->order_by('p.post_date', 'DESC')
                 ->limit( $page->getPageSize(),$page->getOffset())
-                ->get('blog_posts');
+                ->join('admin a', "a.id=p.author")
+                ->get('blog_posts p');
         
         $this->assign('page', $page);
         $this->assign('posts', $posts);        

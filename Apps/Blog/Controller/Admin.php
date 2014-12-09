@@ -7,15 +7,17 @@ class Admin extends \Apps\Backend\Controller\AdminController {
     public function indexAction() {
         $this->assign('menu_blog', 1);
         $this->saveUrlRef();
-        $tbname = $result = $this->db()->tb_name('blog_posts');
-        $params = array();
-        $params['page'] = $this->get('page', 0);
-        $result = $this->db()->query("select * from $tbname WHERE 1 ");
-        $page = new \H1Soft\H\Web\Pagination();
-        $page->setCurPage($this->get('page', 0))->setUrl('blog/index')->setParams($params);
-        $page->count("select count(*) from `$tbname`");
-        $this->assign('page', $page);
-        $this->assign('list', $result);
+
+
+        $total_rows = $this->db()->count('blog_posts');
+        $page = new \H1Soft\H\Web\Pagination($total_rows, $this->get('page', 1), 20);
+        $page->setUrl('/blog/admin/index');
+        $posts = $this->db()->order_by('post_modifyed', 'DESC')
+                ->limit( $page->getPageSize(),$page->getOffset())
+                ->get('blog_posts');
+        
+        $this->assign('page', $page);      
+        $this->assign('list', $posts);
 
         $this->render('admin/blog_index');
     }
@@ -26,9 +28,10 @@ class Admin extends \Apps\Backend\Controller\AdminController {
     public function writeAction() {
         $this->assign('menu_blog', 1);
         $id = $this->get('p', 0);
-
+         
+        $post = $this->db()->getOne('blog_posts', "`id`=$id");
         if ($id) {//修改
-            $post = $this->db()->getOne('blog_posts', "`id`=$id");
+            
             $post_category_result = $this->db()->getAll("blog_to_category", "post_id=$id");
             if ($post_category_result) {
                 $post_category = array();
@@ -38,17 +41,23 @@ class Admin extends \Apps\Backend\Controller\AdminController {
                 $this->assign('post_category', $post_category);
             }
             $this->assign('post', $post);
+            
+            
         }
         if ($this->isPost()) {
             $category = $this->post('category');
             $content = $this->post('content');
-            $title = $this->post('title');
+            $title = trim($this->post('title'));
             $post_date = $this->post('post_date');
             if (\H1Soft\H\Utils\Date::isDate($post_date)) {
                 $post_date = strtotime($post_date);
             }
             $post_status = $this->post('post_status');
             $comment_status = $this->post('comment_status');
+
+            if(empty($title)){
+                $this->showFlashMessage("标题不能为空");
+            }
             if (!$post) {
                 $post_id = $this->db()->insert('blog_posts', array(
                     'author' => \H1Soft\H\Web\Auth::getInstance()->getId(),
@@ -63,7 +72,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
                 $post = \Apps\Blog\Model\Post::getInstance();
                 $post->updateCategory($post_id, $category);
                 $tags = \Apps\Blog\Model\Tags::getInstance();
-                $tags->saveTags($this->post('stags'));
+                $tags->saveTags($this->post('stags'),$post_id);
                 $this->showFlashMessage("添加成功", H_SUCCESS);
             } else {
                 $post['title'] = $title;
@@ -76,13 +85,32 @@ class Admin extends \Apps\Backend\Controller\AdminController {
                 $this->db()->update('blog_posts', $post, "`id`=$id");
                 $post = \Apps\Blog\Model\Post::getInstance();
                 $post->updateCategory($id, $category);
+                $tags = \Apps\Blog\Model\Tags::getInstance();               
+                $tags->saveTags($this->post('stags'),$id);
                 $this->showFlashMessage("修改成功", H_SUCCESS);
             }
         }
         $this->assign('category', \H1Soft\H\Web\Extension\Category::query('blog_category'));
         $this->assign('editor', \Apps\UEditor\Helper\UEditor::create('content'));
+        $tags = \Apps\Blog\Model\Tags::getInstance();
+        $tagname_list = $tags->getTagNamesByPostId($id);
+     
+        $this->assign('tagname_list', $tagname_list);
 
         $this->render('admin/blog_write');
+    }
+
+    /**
+    *   删除文章
+    **/
+    function removeAction() {
+        $this->isSuperAdmin();
+        $id = intval($this->get('p'));
+        if (!$id) {
+            $this->showFlashMessage("文章不存在", H_ERROR, $this->urlRef());
+        }      
+        $this->db()->delete('blog_posts', "`id`=$id");
+        $this->showFlashMessage("删除成功", H_SUCCESS, $this->urlRef());
     }
 
     public function categoryAction() {
@@ -163,15 +191,16 @@ class Admin extends \Apps\Backend\Controller\AdminController {
     public function tagsAction() {
         $this->assign('menu_blog', 1);
         $this->saveUrlRef();
-        $tbname = $result = $this->db()->tb_name('blog_tags');
-        $params = array();
-        $params['page'] = $this->get('page', 0);
-        $result = $this->db()->query("select * from $tbname WHERE 1 ");
-        $page = new \H1Soft\H\Web\Pagination();
-        $page->setCurPage($this->get('page', 0))->setUrl('blog/index')->setParams($params);
-        $page->count("select count(*) from `$tbname`");
-        $this->assign('page', $page);
-        $this->assign('list', $result);
+
+        $total_rows = $this->db()->count('blog_tags');
+        $page = new \H1Soft\H\Web\Pagination($total_rows, $this->get('page', 1), 20);
+        $page->setUrl('/blog/admin/tags');
+        $tags = $this->db()
+                ->limit( $page->getPageSize(),$page->getOffset())
+                ->get('blog_tags');
+        
+        $this->assign('page', $page);      
+        $this->assign('list', $tags);
 
         $this->render('admin/blog_tags');
     }

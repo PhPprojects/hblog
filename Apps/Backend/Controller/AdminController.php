@@ -18,5 +18,8 @@ class AdminController extends \H1Soft\H\Web\Controller {
         parent::init();
         $this->isAdmin();
         \H1Soft\H\Web\Config::set('view.theme','default');
+        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $this->assign('system_nickname',$auth->getName());
+        $this->assign('HBLOG',HBLOG);
     }
 }

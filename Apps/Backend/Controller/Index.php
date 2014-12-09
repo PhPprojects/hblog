@@ -25,6 +25,11 @@ class Index extends \H1Soft\H\Web\Controller {
         $this->assign('GD_INFO', gd_info());        
         $this->assign('GD_IMGTYPE', $this->getSupportedImageTypes());
         
+        $this->assign('HBLOG',HBLOG);
+        
+        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $this->assign('system_nickname',$auth->getName());
+        
         $this->render('admin/index');
     }
 
@@ -41,7 +46,7 @@ class Index extends \H1Soft\H\Web\Controller {
      */
     function loginAction() {
         $auth = \H1Soft\H\Web\Auth::getInstance();
-
+        $this->assign('HBLOG',HBLOG);
         if ($this->isPost()) {
             $username = $this->post('username');
             $password = $this->post('password');

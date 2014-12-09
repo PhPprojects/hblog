@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+        <title>Test Custom Template{{ system.site_title }}</title>
+
+        <meta name="keywords" content="{{ system.meta_tag_keywords }}" />
+        <meta name="author" content="h1soft">
+        <meta name="description" content="{{ system.meta_tag_description }}">
+        
+        <link href="{{BASEPATH}}/themes/default/css/blog-home.css" rel='stylesheet' type='text/css' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        
+
+        <!--        <script type="text/javascript" src="{{BASEPATH}}/assets/a46f51da041/third-party/SyntaxHighlighter/shCore.js"></script>
+                <link href="{{BASEPATH}}/assets/a46f51da041/third-party/SyntaxHighlighter/shCoreDefault.css" rel='stylesheet' type='text/css' />
+                <script>
+                SyntaxHighlighter.all();
+                </script>-->
+    </head>
+    <body>
+    <div id="container">
+        
+        <div class="wrap">
+
+                
+            <div id="header">
+    
+                    
+                    <div id="branding">
+                        
+                        <h1 id="site-title"><a href="{{Blog.homeUrl()}}" title="Free Hblog" rel="home"><span>Test Template {{ system.site_title }}</span></a></h1>                     
+                    </div>
+                    
+                                        
+                    <h2 id="site-description"><span></span></h2>   
+                        
+                    
+            </div><!-- #header -->
+    
+                
+                
+            <div id="main" style="min-height:600px;">
+    
+                
+    
+                    <div id="content">
+
+                                {% block content %}
+                                {% endblock content %}
+
+                   
+                    
+                    </div><!-- #content -->
+
+    
+                
+                
+                <div id="sidebar-primary" class="sidebar">
+                        {%include "sidebar.html"%}
+                    
+
+                    
+                </div>
+
+    
+
+                
+        </div><!-- #main -->
+
+        
+                
+
+        
+        
+         {% include "footer.html" %}
+         <!-- #footer -->
+
+                
+        </div><!-- .wrap -->
+
+    </div><!-- #container -->
+
+    </body>
+</html>
