@@ -14,10 +14,10 @@ class Account extends \Apps\Backend\Controller\AdminController {
     public function settingAction() {
         $this->isAdmin();
         $this->assign('menu_setting', 1);
-//        \H1Soft\H\Web\Config::set('view.theme','hello');
-//        echo \H1Soft\H\Web\Config::get('view.theme');
+//        \hmvc\Web\Config::set('view.theme','hello');
+//        echo \hmvc\Web\Config::get('view.theme');
         $adminHelper = new \Apps\Backend\Helper\Account();
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $auth = \hmvc\Web\Auth::getInstance();
         $admin = $adminHelper->getAccount($auth->getId());
         if ($this->isPost()) {
             $username = $this->post('username');
@@ -25,7 +25,7 @@ class Account extends \Apps\Backend\Controller\AdminController {
             $newpasswd = $this->post('newpasswd');
             $renewpasswd = $this->post('renewpasswd');
             $email = $this->post('email');
-            if ($oldpasswd && \H1Soft\H\Utils\Crypt::password($oldpasswd) != $admin['password']) {
+            if ($oldpasswd && \hmvc\Utils\Crypt::password($oldpasswd) != $admin['password']) {
                 $this->showFlashMessage("旧密码错误");
             }else if($oldpasswd != ""){
                 if (strlen($newpasswd) < 6) {
@@ -33,7 +33,7 @@ class Account extends \Apps\Backend\Controller\AdminController {
                 } else if ($newpasswd != $renewpasswd) {
                     $this->showFlashMessage("两次输入的密码不一样");
                 }else{
-                    $admin['password'] = \H1Soft\H\Utils\Crypt::password($newpasswd);
+                    $admin['password'] = \hmvc\Utils\Crypt::password($newpasswd);
                 }
             }
 

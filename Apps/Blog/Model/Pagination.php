@@ -13,7 +13,7 @@ namespace Apps\Blog\Model;
  *
  * @author Administrator
  */
-class Pagination extends \H1Soft\H\Web\Pagination {
+class Pagination extends \hmvc\Web\Pagination {
 
     public function toHtml($model='posts') {
         $blog = Blog::getInstance();

@@ -2,7 +2,7 @@
 {% block content %}
 
 <ul class="breadcrumb">
-    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li><a href="{{ url_to(['index/index','backend']) }}">主页</a> <span class="divider">/</span></li>
     <li class="active">自定义模版</li>
 </ul>
 {% include "admin/flash_message.html" %}
@@ -42,7 +42,7 @@ name='content' id="content">
 				        <p class="block-heading">模版文件</p>
 				        <div class="block-body">
 				        	<label>选择主题</label>
-				            <select  id="themes" name="themes" onchange="location.href='{{url_to('/admin/theme/customize')}}?themes='+this.value;">
+				            <select  id="themes" name="themes" onchange="location.href='{{url_to(['theme/customize','backend'])}}?themes='+this.value;">
 				            	{% for theme in themes %}
 				            	<option value="{{theme.theme_name}}" {% if theme.theme_name==cthemes %} selected="selected" {% endif %} >{{theme.theme_name}}</option>
 				            	{% endfor %}
@@ -62,7 +62,7 @@ name='content' id="content">
 <script src="{{BASEPATH}}/themes/default/admin/lib/tree.js"></script>
 <script >
 function openFile(file){
-	location.href="{{url_to('/admin/theme/customize')}}?openfile="+file;
+	location.href="{{url_to(['theme/customize','backend'])}}?openfile="+file;
 }
 </script>
 {% endblock %}

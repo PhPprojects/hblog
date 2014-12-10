@@ -10,7 +10,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
 
 
         $total_rows = $this->db()->count('blog_posts');
-        $page = new \H1Soft\H\Web\Pagination($total_rows, $this->get('page', 1), 20);
+        $page = new \hmvc\Web\Pagination($total_rows, $this->get('page', 1), 20);
         $page->setUrl('/blog/admin/index');
         $posts = $this->db()->order_by('post_modifyed', 'DESC')
                 ->limit( $page->getPageSize(),$page->getOffset())
@@ -49,7 +49,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
             $content = $this->post('content');
             $title = trim($this->post('title'));
             $post_date = $this->post('post_date');
-            if (\H1Soft\H\Utils\Date::isDate($post_date)) {
+            if (\hmvc\Utils\Date::isDate($post_date)) {
                 $post_date = strtotime($post_date);
             }
             $post_status = $this->post('post_status');
@@ -60,7 +60,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
             }
             if (!$post) {
                 $post_id = $this->db()->insert('blog_posts', array(
-                    'author' => \H1Soft\H\Web\Auth::getInstance()->getId(),
+                    'author' => \hmvc\Web\Auth::getInstance()->getId(),
                     'title' => $title,
                     'post_name' => $title,
                     'content' => $content,
@@ -90,7 +90,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
                 $this->showFlashMessage("修改成功", H_SUCCESS);
             }
         }
-        $this->assign('category', \H1Soft\H\Web\Extension\Category::query('blog_category'));
+        $this->assign('category', \hmvc\Web\Extension\Category::query('blog_category'));
         $this->assign('editor', \Apps\UEditor\Helper\UEditor::create('content'));
         $tags = \Apps\Blog\Model\Tags::getInstance();
         $tagname_list = $tags->getTagNamesByPostId($id);
@@ -115,7 +115,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
 
     public function categoryAction() {
         $this->assign('menu_blog', 1);
-        $result = \H1Soft\H\Web\Extension\Category::query('blog_category');
+        $result = \hmvc\Web\Extension\Category::query('blog_category');
 
         $this->saveUrlRef();
 
@@ -168,7 +168,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
             $this->redirect($this->urlRef());
         }
 
-        $result = \H1Soft\H\Web\Extension\Category::query('blog_category');
+        $result = \hmvc\Web\Extension\Category::query('blog_category');
 
 
         $this->render('admin/blog_category_modify', array('item' => $category, 'id' => $id, 'list' => $result));
@@ -193,7 +193,7 @@ class Admin extends \Apps\Backend\Controller\AdminController {
         $this->saveUrlRef();
 
         $total_rows = $this->db()->count('blog_tags');
-        $page = new \H1Soft\H\Web\Pagination($total_rows, $this->get('page', 1), 20);
+        $page = new \hmvc\Web\Pagination($total_rows, $this->get('page', 1), 20);
         $page->setUrl('/blog/admin/tags');
         $tags = $this->db()
                 ->limit( $page->getPageSize(),$page->getOffset())

@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace H1Soft\H\Web;
+namespace hmvc\Web;
 
-class Request extends \H1Soft\H\Singleton {
+class Request extends \hmvc\Singleton {
 
     private $_segments = array();
     private $_params = array();
@@ -58,6 +58,10 @@ class Request extends \H1Soft\H\Singleton {
 
     public function requestUri() {
         return $this->REQUEST_URI;
+    }
+    
+    public function baseUrl() {
+        return Application::basePath();
     }
 
     public function curUrl() {

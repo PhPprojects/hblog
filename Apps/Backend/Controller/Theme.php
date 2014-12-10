@@ -16,13 +16,13 @@ class Theme extends \Apps\Backend\Controller\AdminController {
         //搜索所有主题
         $themes = array();
 
-        $it = new \RecursiveDirectoryIterator(\H1Soft\H\Web\Application::themesPath());
+        $it = new \RecursiveDirectoryIterator(\hmvc\Web\Application::themesPath());
         foreach ($it as $path) {
 
             if ($path->isDir()) {
                 $skin = array();
                 $skin['theme_name'] = $path->getFilename();
-                $skin['theme_screenshot'] = \H1Soft\H\Web\Application::basePath() .'/themes/'.$path->getFilename().'/screenshot.jpg';
+                $skin['theme_screenshot'] = \hmvc\Web\Application::basePath() .'/themes/'.$path->getFilename().'/screenshot.jpg';
                 $themes[]  = $skin;
             }
 
@@ -39,7 +39,7 @@ class Theme extends \Apps\Backend\Controller\AdminController {
         if ($this->isGet()) {
            $default = $this->get('default');
            //目录存在
-           if(is_dir(\H1Soft\H\Web\Application::themesPath().$default)){
+           if(is_dir(\hmvc\Web\Application::themesPath().$default)){
                 $system['theme'] = $default;                
                 \Apps\Common\Setting::getInstance()->save('system', $system);
            }else{
@@ -103,7 +103,7 @@ class Theme extends \Apps\Backend\Controller\AdminController {
             $content = $this->post('content');
             $filename = $this->post('filename');
             
-            $themeDir = \H1Soft\H\Web\Application::themesPath().$current_theme.'/customize/';
+            $themeDir = \hmvc\Web\Application::themesPath().$current_theme.'/customize/';
             if(!is_dir($themeDir)){
                 mkdir($themeDir);
                 chmod($themeDir, 0775);
@@ -151,7 +151,7 @@ class Theme extends \Apps\Backend\Controller\AdminController {
         $this->assign('current_theme',$current_theme);
 
 
-        $themeDir = \H1Soft\H\Web\Application::themesPath().$current_theme.'/customize/';
+        $themeDir = \hmvc\Web\Application::themesPath().$current_theme.'/customize/';
 
         if(!is_dir($themeDir)){
             mkdir($themeDir);
@@ -212,7 +212,7 @@ class Theme extends \Apps\Backend\Controller\AdminController {
 
         if($p_id){
             $layout = $this->db()->getOne('layouts', "`id`=$p_id");
-            $themeDir = \H1Soft\H\Web\Application::themesPath().$current_theme.'/customize/';
+            $themeDir = \hmvc\Web\Application::themesPath().$current_theme.'/customize/';
             $filename = $layout['filename'];
             @unlink($themeDir.$filename.'.html');
             $this->db()->delete('layouts', "`id`=$p_id");
@@ -273,7 +273,7 @@ class Theme extends \Apps\Backend\Controller\AdminController {
         //搜索所有主题
         $themes = array();
 
-        $it = new \RecursiveDirectoryIterator(\H1Soft\H\Web\Application::themesPath());
+        $it = new \RecursiveDirectoryIterator(\hmvc\Web\Application::themesPath());
         foreach ($it as $path) {
             if ($path->isDir()) {
                 $skin = array();

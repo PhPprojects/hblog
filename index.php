@@ -15,7 +15,7 @@
 require 'vendor/autoload.php';
 
 
-$app = new \H1Soft\H\Web\Application();
+$app = new \hmvc\Web\Application();
 
 $app->bootstrap('\Apps\Bootstrap')->run();
 

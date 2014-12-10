@@ -16,7 +16,7 @@ class Menu extends \Apps\Backend\Controller\AdminController {
     public function listAction() {
        
       
-        $result = \H1Soft\H\Web\Extension\Category::query('menu');
+        $result = \hmvc\Web\Extension\Category::query('menu');
 
         $this->saveUrlRef();
 
@@ -83,7 +83,7 @@ class Menu extends \Apps\Backend\Controller\AdminController {
             $this->redirect($this->urlRef());
         }
 
-        $result = \H1Soft\H\Web\Extension\Category::query('menu');
+        $result = \hmvc\Web\Extension\Category::query('menu');
 
 
         $this->render('admin/menu/add', array('item' => $category, 'id' => $id, 'list' => $result));

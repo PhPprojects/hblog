@@ -1,7 +1,7 @@
 {% extends "admin/layout/admin.html" %}
 {% block content %}
         <ul class="breadcrumb">
-            <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+            <li><a href="{{ url_to(['index/index','backend']) }}">主页</a> <span class="divider">/</span></li>
             <li class="active">Dashboard</li>
         </ul>
 {% include "admin/flash_message.html" %}
@@ -22,7 +22,7 @@
 
                             <p >
                                 <br/>
-                    <button type="button" onclick="location='{{url_to('/admin/page/list')}}';" class="btn btn-primary">单页管理</button>
+                    <button type="button" onclick="location='{{url_to(['page/list','backend'])}}';" class="btn btn-primary">单页管理</button>
                     <button type="button" onclick="location='{{url_to('/blog/admin/index')}}';"  class="btn btn-success">文章管理</button>  
 
                                 

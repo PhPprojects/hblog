@@ -7,7 +7,7 @@ namespace Apps\Backend\Controller;
  * @authName 后台主页
  * @authDescription 后台主页 登录 退出
  */
-class Index extends \H1Soft\H\Web\Controller {
+class Index extends \hmvc\Web\Controller {
 
     function indexAction() {  
         $this->isAdmin();
@@ -27,7 +27,7 @@ class Index extends \H1Soft\H\Web\Controller {
         
         $this->assign('HBLOG',HBLOG);
         
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $auth = \hmvc\Web\Auth::getInstance();
         $this->assign('system_nickname',$auth->getName());
         
         $this->render('admin/index');
@@ -37,7 +37,7 @@ class Index extends \H1Soft\H\Web\Controller {
      * @skipAuth
      */
     function logoutAction() {
-        \H1Soft\H\Web\Auth::getInstance()->logout();
+        \hmvc\Web\Auth::getInstance()->logout();
         $this->redirect('index/login');
     }
     
@@ -45,7 +45,7 @@ class Index extends \H1Soft\H\Web\Controller {
      * @skipAuth
      */
     function loginAction() {
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $auth = \hmvc\Web\Auth::getInstance();
         $this->assign('HBLOG',HBLOG);
         if ($this->isPost()) {
             $username = $this->post('username');

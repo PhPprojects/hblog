@@ -16,13 +16,13 @@ namespace Apps\Common;
  *
  * @author Allen Niu <h@h1soft.net>
  */
-class Setting extends \H1Soft\H\Singleton {
+class Setting extends \hmvc\Singleton {
 
     private $db;
     private $setting = array();
 
     public function init() {
-        $this->db = \H1Soft\H\Db\Db::getConnection();
+        $this->db = \hmvc\Db\Db::getConnection();
         if(!$this->db){
             throw new Exception("数据库连接失败");            
         }

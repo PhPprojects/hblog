@@ -11,7 +11,7 @@ return array(
         'rewrite'=> require('rewrite.php') 
     ),
     'alias' => array(
-        'admin' => 'backend'
+        'hadmin' => 'backend'
     ),
     'src' => 'Apps',
     'autoload' => array(

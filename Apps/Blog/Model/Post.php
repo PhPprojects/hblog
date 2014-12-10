@@ -5,7 +5,7 @@
 namespace Apps\Blog\Model;
 
 
-class Post extends \H1Soft\H\Web\Model {
+class Post extends \hmvc\Web\Model {
     /**
      * 更新文章分类
      * @param type $post_id

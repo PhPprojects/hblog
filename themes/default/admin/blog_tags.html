@@ -3,7 +3,7 @@
 
 
 <ul class="breadcrumb">
-    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li><a href="{{ url_to(['index/index','backend']) }}">主页</a> <span class="divider">/</span></li>
     <li class="active">标签管理</li>
 </ul>
 {% include "admin/flash_message.html" %}

@@ -1,7 +1,7 @@
 {% extends "admin/layout/admin.html" %}
 {% block content %}
 <ul class="breadcrumb">
-    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li><a href="{{ url_to(['index/index','backend']) }}">主页</a> <span class="divider">/</span></li>
     <li class="active">用户组管理</li>
 </ul>
 
@@ -33,8 +33,8 @@
                                         {{row.name}}                                     
                                     </td>                                    
                                     <td>{{row.description}}</td>                                    
-                                    <td><a href="{{url_to('/admin/auth/modifygroup',{'id':row.id} )}}" >修改</a>
-                                        <a href="{{url_to('/admin/auth/deletegroup',{'id':row.id} )}}" onclick="return H_Confirm('确定删除吗');" >删除</a>
+                                    <td><a href="{{url_to(['auth/modifygroup','backend'],{'id':row.id} )}}" >修改</a>
+                                        <a href="{{url_to(['auth/deletegroup','backend'],{'id':row.id} )}}" onclick="return H_Confirm('确定删除吗');" >删除</a>
                                         
                                     </td>
                                 </tr>                                            

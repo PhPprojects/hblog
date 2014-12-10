@@ -1,7 +1,7 @@
 {% extends "admin/layout/admin.html" %}
 {% block content %}
 <ul class="breadcrumb">
-    <li><a href="{{ url_to('/admin/index/index') }}">主页</a> <span class="divider">/</span></li>
+    <li><a href="{{ url_to(['index/index','backend']) }}">主页</a> <span class="divider">/</span></li>
     <li class="active">主题</li>
 </ul>
 {% include "admin/flash_message.html" %}
@@ -21,9 +21,9 @@
                         <p align="center">
                             <br/>
                         {% if current_theme != theme.theme_name %}
-                        <a href="{{ url_to('/admin/theme/change',{default:theme.theme_name}) }}" class="btn btn-primary icon icon-screenshot">启用</a>
+                        <a href="{{ url_to(['theme/change','backend'],{default:theme.theme_name}) }}" class="btn btn-primary icon icon-screenshot">启用</a>
                         {% else %}
-                        <a href="{{ url_to('/admin/theme/customize') }}" class="btn icon icon-edit">自定义</a>
+                        <a href="{{ url_to(['theme/customize','backend']) }}" class="btn icon icon-edit">自定义</a>
                         {% endif %}
                         
                         </p>

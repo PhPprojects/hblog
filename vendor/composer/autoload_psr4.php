@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'H1Soft\\H\\' => array($vendorDir . '/h1soft/h/src'),
+    'hmvc\\' => array($vendorDir . '/h1soft/h/src'),
 );

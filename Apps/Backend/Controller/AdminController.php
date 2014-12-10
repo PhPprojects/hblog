@@ -13,12 +13,12 @@ namespace Apps\Backend\Controller;
  *
  * @author Administrator
  */
-class AdminController extends \H1Soft\H\Web\Controller {
+class AdminController extends \hmvc\Web\Controller {
     public function init(){
         parent::init();
         $this->isAdmin();
-        \H1Soft\H\Web\Config::set('view.theme','default');
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        \hmvc\Web\Config::set('view.theme','default');
+        $auth = \hmvc\Web\Auth::getInstance();
         $this->assign('system_nickname',$auth->getName());
         $this->assign('HBLOG',HBLOG);
     }

@@ -5,7 +5,7 @@ namespace Apps\Blog\Model;
 /**
  * 博客模块
  */
-class Blog extends \H1Soft\H\Web\Model {
+class Blog extends \hmvc\Web\Model {
 
     public function init() {
         
@@ -15,7 +15,7 @@ class Blog extends \H1Soft\H\Web\Model {
         if ($category_id) {
             return $this->db()->getOne('blog_category', "`id`=$category_id");
         }
-        return \H1Soft\H\Web\Extension\Category::query('blog_category');
+        return \hmvc\Web\Extension\Category::query('blog_category');
     }
     
     public function CategoryName($category_id = NULL) {
@@ -58,19 +58,19 @@ class Blog extends \H1Soft\H\Web\Model {
     }
 
     public function post_link($post_id) {
-        return sprintf("%s/post/%d.html", \H1Soft\H\Web\Application::basePath(), $post_id);
+        return sprintf("%s/post/%d.html", \hmvc\Web\Application::basePath(), $post_id);
     }
     
     public function PagebarLink($post_id,$model) {
-        return sprintf("%s/%s/page/%d.html", \H1Soft\H\Web\Application::basePath(),$model, $post_id);
+        return sprintf("%s/%s/page/%d.html", \hmvc\Web\Application::basePath(),$model, $post_id);
     }
     
     public function category_link($category_id) {
-        return sprintf("%s/category/%d.html", \H1Soft\H\Web\Application::basePath(), $category_id);
+        return sprintf("%s/category/%d.html", \hmvc\Web\Application::basePath(), $category_id);
     }
 
     public function homeUrl() {
-        return sprintf("%s/index.html", \H1Soft\H\Web\Application::basePath());
+        return sprintf("%s/index.html", \hmvc\Web\Application::basePath());
     }
 
 }

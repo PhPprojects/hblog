@@ -2,7 +2,7 @@
 
 namespace Apps\UEditor\Helper;
 
-class UEditor extends \H1Soft\H\Web\Plugin {
+class UEditor extends \hmvc\Web\Plugin {
 
     static public function create($_name, $options = NULL) {
         $create_editor = '';
@@ -15,7 +15,7 @@ class UEditor extends \H1Soft\H\Web\Plugin {
             $options['textarea'] = $_name;
             $create_editor .= "var editor_{$_name} = UE.getEditor('{$_name}'," . json_encode($options) . ");";
         }
-        $basePath = \H1Soft\H\Web\Application::basePath().'/static/ueditor';
+        $basePath = \hmvc\Web\Application::basePath().'/static/ueditor';
 
         $editor = <<<EOF
 <script type="text/javascript" charset="utf-8" src="$basePath/ueditor.config.js"></script>

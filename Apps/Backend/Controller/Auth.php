@@ -28,7 +28,7 @@ class Auth extends \Apps\Backend\Controller\AdminController {
         $this->assign('menu_setting', 1);
         $this->isSuperAdmin();
         
-        $result = \H1Soft\H\Web\Extension\Category::query('resources');
+        $result = \hmvc\Web\Extension\Category::query('resources');
         $this->saveUrlRef();
 
 
@@ -128,9 +128,9 @@ class Auth extends \Apps\Backend\Controller\AdminController {
 
                         $reflector = new \ReflectionClass($namespace . '\\' . $filename);
 
-                        $name = \H1Soft\H\Utils\PHPDoc::findName('authName', $reflector->getDocComment());
-                        $description = \H1Soft\H\Utils\PHPDoc::findName('authDescription', $reflector->getDocComment());
-                        $skipAuth = \H1Soft\H\Utils\PHPDoc::bool('skipAuth', $reflector->getDocComment());
+                        $name = \hmvc\Utils\PHPDoc::findName('authName', $reflector->getDocComment());
+                        $description = \hmvc\Utils\PHPDoc::findName('authDescription', $reflector->getDocComment());
+                        $skipAuth = \hmvc\Utils\PHPDoc::bool('skipAuth', $reflector->getDocComment());
                         if ($skipAuth) {
                             continue;
                         }
@@ -149,12 +149,12 @@ class Auth extends \Apps\Backend\Controller\AdminController {
                         $methods = $reflector->getMethods(\ReflectionMethod::IS_PUBLIC);
                         foreach ($methods as $method) {
                             if (endsWith($method->getName(), 'Action')) {
-                                $skipAuth = \H1Soft\H\Utils\PHPDoc::bool('skipAuth', $method->getDocComment());
+                                $skipAuth = \hmvc\Utils\PHPDoc::bool('skipAuth', $method->getDocComment());
                                 if ($skipAuth) {
                                     continue;
                                 }
-                                $name = \H1Soft\H\Utils\PHPDoc::findName('authName', $method->getDocComment());
-                                $description = \H1Soft\H\Utils\PHPDoc::findName('authDescription', $method->getDocComment());
+                                $name = \hmvc\Utils\PHPDoc::findName('authName', $method->getDocComment());
+                                $description = \hmvc\Utils\PHPDoc::findName('authDescription', $method->getDocComment());
                                 $this->db()->insert('resources', array(
                                     'namespace' => $namespace . '\\' . $filename . '::' . $method->getName(),
                                     'parent' => $insert_id,

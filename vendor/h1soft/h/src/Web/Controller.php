@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace H1Soft\H\Web;
+namespace hmvc\Web;
 
-use \H1Soft\H\Web\Application;
+use \hmvc\Web\Application;
 
-abstract class Controller extends \H1Soft\H\Collections\HArray {
+abstract class Controller extends \hmvc\Collections\HArray {
 
     protected $_viewScripts = array();
     protected $_viewCss = array();
@@ -72,11 +72,11 @@ abstract class Controller extends \H1Soft\H\Collections\HArray {
         if ($this->_engine) {
             return $this->_engine;
         }
-        if (\H1Soft\H\Web\Config::get('view.template')) {
-            $engine = sprintf("\\H1Soft\\H\\Web\\Template\\%s", \H1Soft\H\Web\Config::get('view.template'));
+        if (\hmvc\Web\Config::get('view.template')) {
+            $engine = sprintf("\\hmvc\\Web\\Template\\%s", \hmvc\Web\Config::get('view.template'));
 
             if (!class_exists($engine)) {
-                $engine = "\\H1Soft\\H\\Web\\Template\\View";
+                $engine = "\\hmvc\\Web\\Template\\View";
             }
             $this->_engine = new $engine();
         }
@@ -126,7 +126,7 @@ abstract class Controller extends \H1Soft\H\Collections\HArray {
     }
 
     public function db($_dbname = 'db') {
-        return \H1Soft\H\Db\Db::getConnection($_dbname);
+        return \hmvc\Db\Db::getConnection($_dbname);
     }
 
     public function redirect($url, $httpCode = 302) {
@@ -144,7 +144,7 @@ abstract class Controller extends \H1Soft\H\Collections\HArray {
     }
 
     public function isAllowed($_method, $_redirect = true) {
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $auth = \hmvc\Web\Auth::getInstance();
         if (!$auth->isAllowed($_method)) {
             //redirect
             $this->redirect('index/noauth');
@@ -152,7 +152,7 @@ abstract class Controller extends \H1Soft\H\Collections\HArray {
     }
 
     public function isAdmin($_return = false) {
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $auth = \hmvc\Web\Auth::getInstance();
         if ($_return) {
             return $auth->isAdmin();
         }
@@ -163,7 +163,7 @@ abstract class Controller extends \H1Soft\H\Collections\HArray {
     }
 
     public function isSuperAdmin($_return = false) {
-        $auth = \H1Soft\H\Web\Auth::getInstance();
+        $auth = \hmvc\Web\Auth::getInstance();
         if ($_return) {
             return $auth->isAdmin();
         }

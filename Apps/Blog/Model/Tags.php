@@ -2,7 +2,7 @@
 
 namespace Apps\Blog\Model;
 
-class Tags extends \H1Soft\H\Web\Model {
+class Tags extends \hmvc\Web\Model {
     
     public function saveTags($tags,$post_id){
 

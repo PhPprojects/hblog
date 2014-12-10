@@ -44,7 +44,7 @@
                     <li>
                         <a href="{{ BASEPATH~'/' }}" class="hidden-phone visible-tablet visible-desktop" role="button" target="_blank"><i class="icon-home"></i>网站首页</a></li>
                     <li>
-                        <a href="{{ url_to('/admin/setting/change') }}" class="hidden-phone visible-tablet visible-desktop" role="button"><i class="icon-tasks"></i>系统设置</a></li>
+                        <a href="{{ url_to(['setting/change','backend']) }}" class="hidden-phone visible-tablet visible-desktop" role="button"><i class="icon-tasks"></i>系统设置</a></li>
                         
                     <li id="fat-menu" class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
@@ -53,24 +53,24 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="{{ url_to('/admin/account/setting') }}">我的帐号</a></li>
+                            <li><a tabindex="-1" href="{{ url_to(['account/setting','backend']) }}">我的帐号</a></li>
                             <li class="divider"></li>                            
-                            <li><a tabindex="-1" href="{{ url_to('/admin/index/logout') }}">退出</a></li>
+                            <li><a tabindex="-1" href="{{ url_to(['index/logout','backend']) }}">退出</a></li>
                         </ul>
                     </li>
                   
                     {% endblock top %}
                 </ul>
-                <a class="brand" href="{{ url_to('/admin/index/index') }}"><span class="first"></span> <span class="second">HBlog</span></a>
+                <a class="brand" href="{{ url_to(['index/index','backend']) }}"><span class="first"></span> <span class="second">HBlog</span></a>
         </div>
     </div>
 
 
     <div class="sidebar-nav">
-        <a href="{{ url_to('/admin/index/index') }}" class="nav-header "><i class="icon-home"></i>主页</a>
+        <a href="{{ url_to(['index/index','backend']) }}" class="nav-header "><i class="icon-home"></i>主页</a>
       
         
-        <a href="{{ url_to('/admin/page/list') }}" class="nav-header" ><i class="icon-file"></i>单页管理</a>
+        <a href="{{ url_to(['page/list','backend']) }}" class="nav-header" ><i class="icon-file"></i>单页管理</a>
 
         <a href="#blog-menu" class="nav-header {{ menu_blog ? '' : 'collapsed'}} " data-toggle="collapse"><i class="icon-book"></i>博客管理<i class="icon-chevron-up"></i></a>
         <ul id="blog-menu" class="nav nav-list collapse {%if menu_blog %}in{%endif%}">
@@ -82,18 +82,18 @@
 
         <a href="#theme-menu" class="nav-header {{ menu_theme ? '' : 'collapsed'}} " data-toggle="collapse"><i class="icon-eye-open"></i>外观<i class="icon-chevron-up"></i></a>
         <ul id="theme-menu" class="nav nav-list collapse {%if menu_theme %}in{%endif%}">            
-            <li ><a href="{{ url_to('/admin/theme/list') }}">主题</a></li>
+            <li ><a href="{{ url_to(['theme/list','backend']) }}">主题</a></li>
             <!-- <li ><a href="{{ url_to('/admin/theme/setting') }}">自定义</a></li> -->
-            <li ><a href="{{ url_to('/admin/theme/layouts') }}">布局管理</a></li>
-            <li ><a href="{{ url_to('/admin/menu/list') }}">菜单管理</a></li>
-            <li ><a href="{{ url_to('/admin/theme/customize') }}">编辑</a></li>
+            <li ><a href="{{ url_to(['theme/layouts','backend']) }}">布局管理</a></li>
+            <li ><a href="{{ url_to(['menu/list','backend']) }}">菜单管理</a></li>
+            <li ><a href="{{ url_to(['theme/customize','backend']) }}">编辑</a></li>
         </ul>
 
 
         <a href="#system-menu" class="nav-header {{ menu_setting ? '' : 'collapsed'}} " data-toggle="collapse"><i class="icon-tasks"></i>系统管理<i class="icon-chevron-up"></i></a>
         <ul id="system-menu" class="nav nav-list collapse {%if menu_setting %}in{%endif%}">            
-            <li ><a href="{{ url_to('/admin/auth/group') }}">用户组管理</a></li>
-            <li ><a href="{{ url_to('/admin/setting/change') }}">系统设置</a></li>
+            <li ><a href="{{ url_to(['auth/group','backend']) }}">用户组管理</a></li>
+            <li ><a href="{{ url_to(['setting/change','backend']) }}">系统设置</a></li>
            
         </ul>
 
@@ -103,7 +103,7 @@
             <li ><a href="#">常见问题</a></li>            
         </ul>
 
-        <a href="{{ url_to('/admin/index/logout') }}" class="nav-header" ><i class="icon-signout"></i>退出</a>
+        <a href="{{ url_to(['index/logout','backend']) }}" class="nav-header" ><i class="icon-signout"></i>退出</a>
 
    
     </div>

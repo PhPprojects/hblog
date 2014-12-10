@@ -13,10 +13,10 @@ namespace Apps;
 
 define('HBLOG', 'HBlog 1.0.1');
 
-define('BASEPATH',\H1Soft\H\Web\Application::basePath());
+define('BASEPATH',\hmvc\Web\Application::basePath());
 
 
-class Bootstrap extends \H1Soft\H\Web\Bootstarp {
+class Bootstrap extends \hmvc\Web\Bootstarp {
 
     public function ApplicationStart() {
         date_default_timezone_set('Asia/Shanghai');

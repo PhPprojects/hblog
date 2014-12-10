@@ -10,8 +10,8 @@ class Setting extends \Apps\Backend\Controller\AdminController {
     public function changeAction() {
         $this->isAdmin();
         $this->assign('menu_setting', 1);
-//        \H1Soft\H\Web\Config::set('view.theme','hello');
-//        echo \H1Soft\H\Web\Config::get('view.theme');
+//        \hmvc\Web\Config::set('view.theme','hello');
+//        echo \hmvc\Web\Config::get('view.theme');
       
         if ($this->isPost()) {
             \Apps\Common\Setting::getInstance()->save('system', $this->post('system'));
@@ -19,7 +19,7 @@ class Setting extends \Apps\Backend\Controller\AdminController {
             $this->showFlashMessage("修改成功", H_SUCCESS);
         }
         //System
-        #$this->assign('themes', $this->listDir(\H1Soft\H\Web\Application::$rootPath . 'themes/'));
+        #$this->assign('themes', $this->listDir(\hmvc\Web\Application::$rootPath . 'themes/'));
         $this->assign('system', \Apps\Common\Setting::getInstance()->group('system'));
 
         $this->assign('mail', \Apps\Common\Setting::getInstance()->group('mail'));        

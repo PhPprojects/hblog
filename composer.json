@@ -1,5 +1,5 @@
 {    
     "require": {
-        "h1soft/h": "1.2.3"
+        "h1soft/h": "dev-master"
     }
 }

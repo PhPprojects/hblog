@@ -11,7 +11,7 @@ class Page extends \Apps\Backend\Controller\AdminController {
 
 
         $total_rows = $this->db()->count('pages');
-        $page = new \H1Soft\H\Web\Pagination($total_rows, $this->get('page', 1), 2);
+        $page = new \hmvc\Web\Pagination($total_rows, $this->get('page', 1), 2);
         $page->setUrl('page/list');
         $pages = $this->db()->order_by('modify_at', 'DESC')
                 ->limit( $page->getPageSize(),$page->getOffset())

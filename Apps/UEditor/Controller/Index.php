@@ -17,8 +17,8 @@ class Index extends \Apps\Backend\Controller\AdminController {
         error_reporting(E_ERROR);
         header("Content-Type: text/html; charset=utf-8");
         $CONFIG = objectToArray(new \Apps\UEditor\Helper\Config());
-        if (is_file(\H1Soft\H\Web\Application::etcPath() . 'ueditor.php')) {
-            $etcConfig = include \H1Soft\H\Web\Application::etcPath() . 'ueditor.php';
+        if (is_file(\hmvc\Web\Application::etcPath() . 'ueditor.php')) {
+            $etcConfig = include \hmvc\Web\Application::etcPath() . 'ueditor.php';
             if (is_array($etcConfig)) {
                 $CONFIG = array_merge($CONFIG, $etcConfig);
             }

@@ -13,11 +13,11 @@ namespace Apps\Common;
  *
  * @author h1soft
  */
-class Controller extends \H1Soft\H\Web\Controller {
+class Controller extends \hmvc\Web\Controller {
     public function init(){
         parent::init();
         $system = Setting::getInstance()->group('system');
         $this->assign('system',$system);
-        \H1Soft\H\Web\Config::set('view.theme', $system['theme']);
+        \hmvc\Web\Config::set('view.theme', $system['theme']);
     }
 }

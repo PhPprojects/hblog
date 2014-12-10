@@ -33,7 +33,7 @@ editAreaLoader.init({
 //,display: "later"
 EOF;
         }
-        $basePath = \H1Soft\H\Web\Application::basePath().'/static/edit_area';
+        $basePath = \hmvc\Web\Application::basePath().'/static/edit_area';
 
         $editor = <<<EOF
 <script type="text/javascript" charset="utf-8" src="$basePath/edit_area_full.js"></script>
